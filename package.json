@@ -1,0 +1,35 @@
+{
+  "name": "db-version",
+  "version": "1.0.0",
+  "description": "database version control",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {
+    "async": "^2.0.1"
+  },
+  "devDependencies": {
+    "mysql": "^2.11.1"
+  },
+  "scripts": {
+    "test": "node test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yinrong/node-db-version.git"
+  },
+  "keywords": [
+    "liquibase",
+    "mysql",
+    "sql",
+    "version",
+    "schema"
+  ],
+  "author": "yinrong",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/yinrong/node-db-version/issues"
+  },
+  "homepage": "https://github.com/yinrong/node-db-version#readme"
+}

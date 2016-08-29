@@ -1,0 +1,28 @@
+# Do NOT change any committed sentence!
+# 禁止修改已提交的语句！
+
+CREATE TABLE `campaign` (
+ `id` bigint(11) NOT NULL AUTO_INCREMENT,
+ `name` varchar(300) DEFAULT NULL COMMENT '每日预算',
+ `day_budget` bigint(20) DEFAULT NULL,
+ `start_time` datetime DEFAULT NULL,
+ `end_time` datetime DEFAULT NULL,
+ `time_range` varchar(4000) DEFAULT NULL COMMENT '投放时间段',
+ `status` tinyint(4) DEFAULT NULL COMMENT '使用状态',
+ `pin` varchar(50) DEFAULT NULL,
+ `yn` tinyint(4) DEFAULT NULL,
+ `created_time` datetime DEFAULT NULL,
+ `modified_time` datetime DEFAULT NULL,
+ `uuid` varchar(128) DEFAULT NULL COMMENT '唯一主键',
+ `spread_type` int(11) DEFAULT NULL COMMENT '投放类型',
+ `put_type` bigint(20) unsigned DEFAULT NULL COMMENT '推广计划类型 1普通推广 3 商品推广',
+ `req_type` int(11) DEFAULT NULL,
+ `business_type` int(11) DEFAULT NULL,
+ `uniform_speed` tinyint(4) DEFAULT NULL,
+ PRIMARY KEY (`id`),
+ KEY `idx_pin` (`pin`),
+ KEY `idx_modify` (`modified_time`),
+ KEY `idx_created_time` (`created_time`),
+ KEY `idx_yn` (`yn`)
+) ENGINE=InnoDB AUTO_INCREMENT=1752521 DEFAULT CHARSET=utf8 COMMENT='推广计划';
+
