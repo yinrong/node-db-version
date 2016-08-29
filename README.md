@@ -1,6 +1,6 @@
-node-db-version
+dbversion
 ==================
-version control for database schema.
+Version control for database like MySQL.
 
 Each SQL in a file will be executed only once.
 
@@ -17,7 +17,7 @@ alter table user add mail string;
 ```
 
 ```javascript
-const dbversion = require('db-version')
+const dbversion = require('dbversion')
 const conn = getMysqlConnection() // reference https://github.com/mysqljs/mysql#introduction
 dbversion.apply(
   {
