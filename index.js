@@ -10,19 +10,19 @@ module.exports.apply = function(p, callback) {
     fs.readFile(p.filename, next)
   },
   function(txt, next) {
-
     sqls = txt.toString()
-      .split('\n')
-      .filter(function(line) {
-        line = line.replace(/^ +/, '')
-        line = line.replace(/ +$/, '')
-        if (!line) return false
-        if (line.match(/^#/)) return false
-        return true
+      .split(/; *\n/)
+      .filter(function(block) {
+        block = block
+          .replace(/^ *#.*\n/mg, '') // remove comment
+          .replace(/\n/g, ' ')
+          .replace(/^ +/, '')
+          .replace(/ +$/, '')
+        return block
       })
-      .join(' ')
+      .join(DELIMITER)
       .replace(/  +/g, ' ')
-      .split(';')
+      .split(DELIMITER)
       .filter(function(sql) {
         return sql
       })
@@ -70,3 +70,4 @@ const async = require('async')
 const fs = require('fs')
 const path = require('path')
 const SCHEMA = '`__schema__v1_1`'
+const DELIMITER = '@ZNB810256-LINE@'
