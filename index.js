@@ -1,6 +1,7 @@
 module.exports.apply = function(p, callback) {
   if (!p.onExecuted) p.onExecuted = function(){}
   var sqls, db = p.connection, old_n
+  var basename = path.basename(p.filename)
   var outinfo = {
     n_executed: 0,
   }
@@ -25,10 +26,10 @@ module.exports.apply = function(p, callback) {
       .filter(function(sql) {
         return sql
       })
-    db.query('create table if not exists `__SCHEMA__` (n int)', next)
+    db.query(`create table if not exists ${SCHEMA} (basename varchar(100), n int)`, next)
   },
   function(rows, info, next) {
-    db.query('select n from `__SCHEMA__`', next)
+    db.query(`select n from ${SCHEMA} where basename='${basename}'`, next)
   },
   function(rows, info, next) {
     if (rows.length > 0) {
@@ -36,7 +37,7 @@ module.exports.apply = function(p, callback) {
       return next(null, null, null)
     }
     old_n = 0
-    db.query('insert into `__SCHEMA__` (n) values (0)', next)
+    db.query(`insert into ${SCHEMA} (basename,n) values ('${basename}', 0)`, next)
   },
   function(rows, info, next) {
 
@@ -47,7 +48,7 @@ module.exports.apply = function(p, callback) {
         db.query(sql, next1)
       },
       function(rows, info, next1) {
-        db.query('update `__SCHEMA__` set n = n + 1', next1)
+        db.query(`update ${SCHEMA} set n = n + 1 where basename='${basename}'`, next1)
       },
       function(rows, info, next1) {
         outinfo.n_executed++
@@ -67,3 +68,5 @@ module.exports.apply = function(p, callback) {
 
 const async = require('async')
 const fs = require('fs')
+const path = require('path')
+const SCHEMA = '`__schema__v1_1`'

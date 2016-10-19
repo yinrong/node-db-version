@@ -2,7 +2,7 @@ dbversion
 ==================
 Version control for database like MySQL.
 
-Each SQL in a file will be executed only once.
+Each SQL in the file will be executed only once.
 
 __sqls.txt__
 ```sql
